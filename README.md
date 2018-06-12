@@ -10,7 +10,7 @@ https://github.com/BeyondTrust/pbis-open/releases
 If you want to add a group for root access on all node, you need to add the following:
 
 ```
-/opt/pbis/bin/adtool -a new-group --dn $DNPATH --pre-win-2000-name=ux_unix_admin --name=ux_unix_admin
+$ /opt/pbis/bin/adtool -a new-group --dn $DNPATH --pre-win-2000-name=ux_unix_admin --name=ux_unix_admin
 
 ```
 
@@ -18,6 +18,6 @@ If you want to add a group for root access on all node, you need to add the foll
 
 Use config dump to check your current settings:
 ```
-/opt/pbis/bin/config --dump
+$ /opt/pbis/bin/config --dump
 
 ```
