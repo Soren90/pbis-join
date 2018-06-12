@@ -20,6 +20,11 @@ DNPATH=
 
 SERVER=$(HOSTNAME)
 
+if [[ -z $UOPATH || -z $FQDN || -z $ADUSER || -z $DNPATH ]]; then
+      echo 'ERROR: Please define variables'
+        exit 1
+fi
+
 if grep -q '#PBIS Groups' /etc/sudoers
 then
     echo 'This host host is already joined. Exiting.'
