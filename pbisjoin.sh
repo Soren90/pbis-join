@@ -2,14 +2,14 @@
 
 #please set the following vars:
 
-UOPATH=
+OUPATH=
 #example: OU=Unix,OU=Computers,DC=Contoso,DC=com
 
 FQDN=
 #example: ad.contoso.com
 
 ADUSER=
-#example: bill
+#example: za0284
 
 DNPATH=
 #example: OU=Unix,OU=Groups,DC=Contoso,DC=com
@@ -18,16 +18,16 @@ DNPATH=
 ########
 #Do not edit
 
-SERVER=$(HOSTNAME)
-
-if [[ -z $UOPATH || -z $FQDN || -z $ADUSER || -z $DNPATH ]]; then
+if [[ -z $OUPATH || -z $FQDN || -z $ADUSER || -z $DNPATH ]]; then
       echo 'ERROR: Please define variables'
-        exit 1
+      exit 1
 fi
+
+HOSTNAME=$(hostname)
 
 if grep -q '#PBIS Groups' /etc/sudoers
 then
-    echo 'This host host is already joined. Exiting.'
+    echo 'This host is already joined. Exiting.'
     exit 0
 else
     cat <<EOF >> /etc/sudoers
@@ -37,7 +37,7 @@ else
 EOF
 fi
 
-/opt/pbis/bin/domainjoin-cli --notimesync --ou $UOPPATH join $FQDN $ADUSER
+/opt/pbis/bin/domainjoin-cli --notimesync --ou $OUPATH join $FQDN $ADUSER
 echo "Domain joined"
 
 /opt/pbis/bin/adtool -a new-group --dn $DNPATH --pre-win-2000-name=SRV_${HOSTNAME}_AUTH --name=SRV_${HOSTNAME}_AUTH
